@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LocaTwet</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Login Page -->
+        <div id="loginPage" class="page active">
+            <div class="login-container">
+                <div class="logo">LocaTwet</div>
+                <p class="tagline">Berkongsi Momen Anda</p>
+                <input type="text" id="loginUsername" placeholder="Username" class="input">
+                <input type="password" id="loginPassword" placeholder="Password" class="input">
+                <button class="btn btn-primary" onclick="login()">Log Masuk</button>
+                <button class="btn btn-secondary" onclick="showRegister()">Daftar Akaun</button>
+            </div>
+        </div>
+
+        <!-- Register Page -->
+        <div id="registerPage" class="page">
+            <div class="login-container">
+                <div class="logo">LocaTwet</div>
+                <p class="tagline">Daftar Akaun Baru</p>
+                <input type="text" id="regUsername" placeholder="Username" class="input">
+                <input type="password" id="regPassword" placeholder="Password" class="input">
+                <input type="password" id="regConfirm" placeholder="Confirm Password" class="input">
+                <button class="btn btn-primary" onclick="register()">Daftar</button>
+                <button class="btn btn-secondary" onclick="showLogin()">Kembali</button>
+            </div>
+        </div>
+
+        <!-- Main App -->
+        <div id="mainApp" class="page">
+            <!-- Header -->
+            <div class="header">
+                <span class="header-title">LocaTwet</span>
+                <button class="btn-logout" onclick="logout()">Keluar</button>
+            </div>
+
+            <!-- Feed Page -->
+            <div id="feedPage" class="content">
+                <div id="postsContainer"></div>
+            </div>
+
+            <!-- Upload Page -->
+            <div id="uploadPage" class="content hidden">
+                <h2>Cipta Post Baru</h2>
+                <div class="upload-area" onclick="document.getElementById('fileInput').click()">
+                    <span class="upload-icon">📷</span>
+                    <p>Klik untuk pilih gambar/video</p>
+                </div>
+                <input type="file" id="fileInput" accept="image/*,video/*" style="display:none;" onchange="previewFile()">
+                <div id="previewArea"></div>
+                <textarea id="postCaption" placeholder="Tulis caption..." class="textarea"></textarea>
+                <button class="btn btn-primary" onclick="uploadPost()">Post</button>
+            </div>
+
+            <!-- Profile Page -->
+            <div id="profilePage" class="content hidden">
+                <div class="profile-header">
+                    <div class="profile-avatar" id="profileAvatar">U</div>
+                    <h2 id="profileUsername">Username</h2>
+                    <p id="profileBio">Bio pengguna</p>
+                </div>
+                <div class="menu-list">
+                    <div class="menu-item" onclick="showEditModal()">
+                        <span>Edit Username</span>
+                        <span>›</span>
+                    </div>
+                    <div class="menu-item" onclick="showPasswordModal()">
+                        <span>Tukar Password</span>
+                        <span>›</span>
+                    </div>
+                    <div class="menu-item" onclick="showSwitchModal()">
+                        <span>Switch Account (Max 3)</span>
+                        <span>›</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bottom Navigation -->
+            <div class="bottom-nav">
+                <button class="nav-btn active" onclick="showPage('feed')">
+                    <span class="nav-icon">🏠</span>
+                    <span class="nav-label">Utama</span>
+                </button>
+                <button class="nav-btn" onclick="showPage('upload')">
+                    <span class="nav-icon">➕</span>
+                    <span class="nav-label">Upload</span>
+                </button>
+                <button class="nav-btn" onclick="showPage('profile')">
+                    <span class="nav-icon">👤</span>
+                    <span class="nav-label">Profil</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modals -->
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <h3>Edit Username</h3>
+            <input type="text" id="editUsername" placeholder="Username baru" class="input">
+            <button class="btn btn-primary" onclick="updateUsername()">Simpan</button>
+            <button class="btn btn-secondary" onclick="closeModal('editModal')">Batal</button>
+        </div>
+    </div>
+
+    <div id="passwordModal" class="modal">
+        <div class="modal-content">
+            <h3>Tukar Password</h3>
+            <input type="password" id="oldPassword" placeholder="Password lama" class="input">
+            <input type="password" id="newPassword" placeholder="Password baru" class="input">
+            <button class="btn btn-primary" onclick="updatePassword()">Tukar</button>
+            <button class="btn btn-secondary" onclick="closeModal('passwordModal')">Batal</button>
+        </div>
+    </div>
+
+    <div id="switchModal" class="modal">
+        <div class="modal-content">
+            <h3>Switch Account</h3>
+            <div id="accountsList"></div>
+            <button class="btn btn-secondary" onclick="closeModal('switchModal')">Tutup</button>
+        </div>
+    </div>
+
+    <div id="commentModal" class="modal">
+        <div class="modal-content">
+            <h3>Komen</h3>
+            <div id="commentsList"></div>
+            <div class="comment-input-area">
+                <input type="text" id="commentInput" placeholder="Tulis komen..." class="input">
+                <button class="btn btn-primary" onclick="postComment()">Hantar</button>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="app.js"></script>
+</body>
+</html>
